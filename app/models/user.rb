@@ -6,4 +6,8 @@ class User < ApplicationRecord
   has_secure_password
   VALID_PASSWORD_REGEX = /\A[a-z0-9]+\z/i
   validates :password, presence: true, length: { minimum: 8, maximum:32 },format: { with: VALID_PASSWORD_REGEX }
+  has_many :topics
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_topics, through: :favorites, source: 'topic'
+  has_many :comments
 end
